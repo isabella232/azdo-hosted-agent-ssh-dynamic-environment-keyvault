@@ -19,7 +19,7 @@ stages:
     - task: AzureKeyVault@1
       displayName: 'Download Azure KeyVault secrets'
       inputs:
-        azureSubscription: spn_Demo_Connection
+        azureSubscription: {your_service_connection}
         keyVaultName: $(keyvault-name)
         secretsFilter: '*'
         runAsPreJob: false # Azure DevOps Services only
@@ -27,7 +27,7 @@ stages:
     - task: AzureCLI@2
       displayName: Execute bash scripts to install private key & ssh into VM
       inputs:
-        azureSubscription: spn_Demo_Connection
+        azureSubscription: {your_service_connection}
         scriptType: bash
         scriptLocation: scriptPath
         scriptPath: '$(System.DefaultWorkingDirectory)/aspnetcoreapp-deploy.sh'
