@@ -1,0 +1,34 @@
+trigger:
+  branches:
+    include:
+    - master
+  
+variables:
+  docker-image: 'mcr.microsoft.com/dotnet/core/samples:aspnetapp'
+
+stages:
+- stage: SSHStage
+  displayName: 'Install Private Key and SSH into VM'
+  jobs:
+  - job: SSHJob
+    displayName: 'SSH job'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    # Download Azure Key Vault secrets
+    - task: AzureKeyVault@1
+      displayName: 'Download Azure KeyVault secrets'
+      inputs:
+        azureSubscription: spn_Demo_Connection
+        keyVaultName: $(keyvault-name)
+        secretsFilter: '*'
+        runAsPreJob: false # Azure DevOps Services only
+    # Execute bash scripts
+    - task: AzureCLI@2
+      displayName: Execute bash scripts to install private key & ssh into VM
+      inputs:
+        azureSubscription: spn_Demo_Connection
+        scriptType: bash
+        scriptLocation: scriptPath
+        scriptPath: '$(System.DefaultWorkingDirectory)/aspnetcoreapp-deploy.sh'
+        arguments: -a $(docker-image) -v $(vm-username) -i $(vm-ip-address) -k $(keyvault-name) -d $(System.DefaultWorkingDirectory)        
