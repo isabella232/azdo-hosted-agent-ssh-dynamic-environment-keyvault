@@ -182,6 +182,11 @@ In Azure DevOps:
 1. Create a New Release Pipeline
 1. Select the GitHub Repository you cloned as the Artifacts
 1. Select Existing Azure Pipelines YAML file & choose *azure-pipelines.yml*
+1. In the *azure-pipeline.yml* file, you will want to replace the below with the name of the Service Connection you created:  
+
+   ```yaml
+    {your_service_connection}
+   ```
 
 We need to create the variables that the "aspnetcoreapp-deploy.sh" uses:
 
@@ -194,12 +199,12 @@ Under the "Variables" tab, create the following variables:
 The sample [azure-pipelines.yml](azure-pipeline.yml) file does the following:
 
 1. Retrieve the Azure KeyVault secrets & store as CI/CD Environment Variables
-1. Execute the [aspnetcoreapp-deploy.sh](aspnetcoreapp-deploy.sh) script to:
+2. Execute the [aspnetcoreapp-deploy.sh](aspnetcoreapp-deploy.sh) script to:
      1. Install the private key on on the CI/CD build server
-     1. Use Docker Host to SSH into the Virtual Machine
-     1. Download a docker image & start the container
+     2. Use Docker Host to SSH into the Virtual Machine
+     3. Download a docker image & start the container
 
-## Run Azure DevOps Release Pipeline & Test ASP.Net Core Sample Application
+## Run Azure DevOps Release Pipeline & Test ```ASP.Net``` Core Sample Application
 
 Now that we have created the Release Pipeline, we can hit the "Create release" button at the top right to create a release.
 
