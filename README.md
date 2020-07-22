@@ -215,3 +215,7 @@ Now that we have created the Release Pipeline, we can hit the "Create release" b
 Testing the ASP.Net Core Sample Application by navigating to "http://{virtual_machine_ip_address}:8000"
 
 ![how-to-ssh-into-an-azure-virtual-machine-using-azure-devops-azure-keyvault-and-bash-012](docs/images/how-to-ssh-into-an-azure-virtual-machine-using-azure-devops-azure-keyvault-and-bash-012.png)
+
+## Disclaimer
+
+Temporary switch to non-main branch.
